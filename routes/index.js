@@ -1,6 +1,8 @@
-const router    =       require('koa-router')();
-const main      =       require("./main.js");
+import koa_router from 'koa-router'
+import home       from './home'
 
-router.use(main.routes());
+const router = koa_router()
 
-module.exports = router;
+router.use(home.routes())
+
+module.exports = router
