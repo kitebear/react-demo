@@ -1,7 +1,9 @@
 {
-  "presets": ["es2015-node5"],
   "plugins": [
-    "transform-async-to-generator",
-    "syntax-async-functions"
+    "transform-strict-mode",
+    "transform-es2015-modules-commonjs",
+    "transform-es2015-spread",
+    "transform-es2015-destructuring",
+    "transform-es2015-parameters"
   ]
 }

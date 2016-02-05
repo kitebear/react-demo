@@ -5,7 +5,15 @@
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
+    "babel-cli": "^6.4.5",
+    "babel-core": "^6.4.5",
     "babel-loader": "^6.2.1",
+    "babel-plugin-transform-es2015-destructuring": "^6.4.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.4.5",
+    "babel-plugin-transform-es2015-parameters": "^6.4.5",
+    "babel-plugin-transform-es2015-spread": "^6.4.0",
+    "babel-plugin-transform-runtime": "^6.4.3",
+    "babel-plugin-transform-strict-mode": "^6.3.13",
     "babel-preset-es2015-node5": "^1.1.2",
     "babel-preset-stage-0": "^6.3.13",
     "babel-register": "^6.4.3",
@@ -18,11 +26,12 @@
     "koa-static": "^2.0.0",
     "koa-static-cache": "^3.1.4",
     "koa-views": "^3.1.0",
-    "nodemon": "^1.8.1",
+    "react": "^0.14.7",
     "webpack": "^1.12.12"
   },
   "scripts": {
-    "start": "./node_modules/.bin/nodemon"
+    "start": "babel-node app.js",
+    "build": "babel public --out-dir lib"
   },
   "author": "",
   "license": "ISC"
