@@ -56,7 +56,7 @@ app.use(router.routes()).use(router.allowedMethods())
 
 // 错误
 app.on('error', function(err, ctx){
-    console.log.error('server error', err, ctx)
+    console.log('server error', err, ctx)
 });
 
 // 监听3000
