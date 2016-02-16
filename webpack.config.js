@@ -5,13 +5,15 @@ module.exports = {
     //页面入口
     entry:
     {
-        app : main_path + '/public/entry.js',
+        //main        : main_path + '/public/entry.jsx',
+        '基础写法'   : main_path + '/public/test/基础写法.jsx',
+        '组件式套用'   : main_path + '/public/test/组件式套用.jsx',
         vendor: ['react']
     },
     //出口文件输出配置
     output: {
         path: main_path + '/dist',
-        filename: "build.js",
+        filename: "[name].js",
         publicPath: '/dist/'
     },
     //加载器
@@ -22,9 +24,12 @@ module.exports = {
                 loader: "style-loader!css-loader!sass-loader"
             },
             {
-                test: /\.js|jsx$/,
+                test:/\.jsx|js$/,
+                exclude:/(node_modules)/,
                 loader: 'babel',
-                exclude: /node_modules/
+                query:{
+                    presets:['es2015', 'stage-0', 'react']
+                }
             },
             {test: /\.css$/, loader: "style-loader!css-loader"},
             {test: /\.png$/, loader: "url-loader?prefix=img/&limit=5000"},
@@ -32,10 +37,6 @@ module.exports = {
             {test: /\.gif$/, loader: "url-loader?prefix=img/&limit=5000"},
             {test: /\.woff$/, loader: "url-loader?prefix=font/&limit=5000"}
         ]
-    },
-    babel: {
-        presets: ['es2015'],
-        plugins: ['transform-runtime']
     },
     //sourceMap: true, //源支持
     plugins: [
