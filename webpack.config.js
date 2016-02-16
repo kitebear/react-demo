@@ -8,6 +8,7 @@ module.exports = {
         //main        : main_path + '/public/entry.jsx',
         '基础写法'   : main_path + '/public/test/基础写法.jsx',
         '组件式套用'   : main_path + '/public/test/组件式套用.jsx',
+        'SimpleApplication': main_path + '/public/test/SimpleApplication.jsx',
         vendor: ['react']
     },
     //出口文件输出配置

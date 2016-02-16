@@ -10,4 +10,8 @@ router.get("/demo/2",function *(next) {
     yield this.render('demo/组件式套用',{ title: "组件式套用" })
 })
 
+router.get("/demo/3",function *(next) {
+    yield this.render('demo/SimpleApplication',{ title: "SimpleApplication" })
+})
+
 module.exports = router

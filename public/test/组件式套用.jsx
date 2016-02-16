@@ -65,14 +65,11 @@ const Comment = React.createClass({
 //嵌套组件
 const CommentList = React.createClass({
     render () {
-        var commentNodes = this.props.data.map(function(comment){
-            return (
-                <Comment author={comment.author}>{comment.text}</Comment>
-            );
-        })
         return (
             <div className="commentList">
-                {commentNodes}
+                { this.props.data.map((comment,index) => {
+                    return <Comment key={index} author={comment.author}>{comment.text}</Comment>
+                }) }
                 <Comment author="Jordan Walke">This is *another* comment</Comment>
             </div>
         )
@@ -81,27 +78,63 @@ const CommentList = React.createClass({
 
 const CommentForm = React.createClass({
     render: function(){
+        let commentState = this.props.data.map((value,index) => {
+            return (
+                <li key={index}> {value} </li>
+            )
+        })
         return (
             <div className="commentFrom">
-                Hello, world! I am a CommentFrom
+                Hello, world! I am a CommentFrom,看一下序列
+                { commentState }
+                <button onClick={this.props.ck}></button>
             </div>
         )
     }
 })
 
 const CommentBox = React.createClass({
+    //第一次初始化时调用 返回state的值
+    getInitialState () {
+        return { data: [1,2,3,4] };
+    },
+    ck () {
+        console.log("执行");
+    },
+    loadCommentsFromServer: function() {
+        setTimeout(() => {
+            this.setState({data: [5,6,7,8]});
+        },3000);
+
+        //$.ajax({
+        //    url: this.props.url,
+        //    dataType: 'json',
+        //    cache: false,
+        //    success: function(data) {
+        //        this.setState({data: data});
+        //    }.bind(this),
+        //    error: function(xhr, status, err) {
+        //        console.error(this.props.url, status, err.toString());
+        //    }.bind(this)
+        //});
+    },
+    //组件渲染的时候被 React 自动调用的方法
+    componentDidMount: function() {
+        this.loadCommentsFromServer();
+        //setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+    },
     render: function(){
         return (
             <div className="commentBox">
                 <h1> Comments </h1>
                 <CommentList data={this.props.data}></CommentList>
-                <CommentForm></CommentForm>
+                <CommentForm data={this.state.data} ck={this.ck}></CommentForm>
             </div>
         )
     }
 })
 
 ReactDom.render(
-    <CommentBox data={data}></CommentBox>,
+    <CommentBox data={data} pollInterval={2000}></CommentBox>,
     document.querySelector("#content")
 )
