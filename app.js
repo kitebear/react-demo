@@ -16,11 +16,12 @@ const routes    = require(PATH + 'routes/index.js')
 
 var compiler  = webpack(webpackConfig)
 
+app.use(favicon(__dirname + '/public/favicon.ico'))
+
 app.engine('html', engines.hogan);
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
 
-app.use(favicon(__dirname + '/public/favicon.ico'))
 
 app.use(session({ secret: 'react_demo', cookie: { maxAge: 60000*60 }}))
 
@@ -85,10 +86,10 @@ app.use(function(req, res, next) {
 
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+    res.send(JSON.stringify({
         message: err.message,
         error: (app.get('env') === 'development') ? err : {}
-    });
+    }));
 });
 
 // 监听3000
