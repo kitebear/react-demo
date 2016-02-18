@@ -1,62 +1,76 @@
-import Koa              from 'koa'
-import logger           from 'koa-logger'
-import bodyParser       from 'koa-bodyparser'
-import koaStatic        from 'koa-static'
-import koaJson          from 'koa-json'
+import express          from 'express'
 import path             from 'path'
-import koaStaticCache   from 'koa-static-cache'
-import views            from 'koa-views'
-import favicon          from 'koa-favicon'
 import webpack          from 'webpack'
-import webpackConfig    from './webpack.config'
+import logger           from 'morgan'
+import bodyParser       from 'body-parser'
+import cookieParser     from 'cookie-parser'
+import session          from 'express-session'
+import favicon          from 'serve-favicon'
+import webpackConfig    from './webpack.config.dev'
 
 const PATH = __dirname + "/" || path.join("./")
 
-const app       = new Koa();
+const app       = express()
 const router    = require(PATH + 'routes/index.js')
-const compiler  = webpack(webpackConfig);
+const compiler  = webpack(webpackConfig)
+
+app.set('views', __dirname + '/views')
+app.set('view engine', 'html')
 
 app.use(favicon(__dirname + '/public/favicon.ico'))
-
-app.use(views('views', {
-    root: __dirname + '/views',
-    default: 'html'
-}))
 
 app.use(koaStaticCache(path.join(__dirname, 'public'), {
     maxAge: 600000 * 60
 }))
 
 // 中间件
-app.use(bodyParser())
-app.use(koaJson())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(session({ secret: 'koa_and_react', cookie: { maxAge: 60000*60 }}))
 
 if(!process.env.NODE_ENV != 'production'){
     app.use(logger())
 
-    compiler.watch({
-        aggregateTimeout: 300,
-        poll: true
-    }, function(err, stats) {
-        if(err)
-            console.log(err.message);
-        var jsonStats = stats.toJson();
-        if(jsonStats.errors.length > 0)
-            console.log(jsonStats.errors);
-        if(jsonStats.warnings.length > 0)
-            console.log(jsonStats.warnings);
-        console.log('compiler complete');
-    });
+    app.use(require('webpack-dev-middleware')(compiler, {
+        noInfo: true,
+        publicPath: webpackConfig.output.publicPath
+    }))
+
+    app.use(require('webpack-hot-middleware')(compiler));
+
+    //compiler.watch({
+    //    aggregateTimeout: 300,
+    //    poll: true
+    //}, function(err, stats) {
+    //    if(err)
+    //        console.log(err.message);
+    //    var jsonStats = stats.toJson();
+    //    if(jsonStats.errors.length > 0)
+    //        console.log(jsonStats.errors);
+    //    if(jsonStats.warnings.length > 0)
+    //        console.log(jsonStats.warnings);
+    //    console.log('compiler complete');
+    //});
 }
 
-app.use(koaStatic(__dirname + '/dist'))
+app.use(express.static(path.join(__dirname, 'dist')));
 
 // 响应
-app.use(router.routes()).use(router.allowedMethods())
+//app.use(router.routes()).use(router.allowedMethods())
 
-// 错误
-app.on('error', function(err, ctx){
-    console.log('server error', err, ctx)
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: (app.get('env') === 'development') ? err : {}
+    });
 });
 
 // 监听3000

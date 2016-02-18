@@ -1,7 +1,9 @@
 const webpack   = require('webpack');
 const path      = require('path');
 const main_path = path.resolve();
+
 module.exports = {
+    devtool: 'source-map',
     //页面入口
     entry:
     {
@@ -9,6 +11,7 @@ module.exports = {
         '基础写法'   : main_path + '/public/test/基础写法.jsx',
         '组件式套用'   : main_path + '/public/test/组件式套用.jsx',
         'SimpleApplication': main_path + '/public/test/SimpleApplication.jsx',
+        'API使用': main_path + '/public/test/API使用.jsx',
         vendor: ['react']
     },
     //出口文件输出配置
@@ -41,6 +44,17 @@ module.exports = {
     },
     //sourceMap: true, //源支持
     plugins: [
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compressor: {
+                warnings: false
+            }
+        }),
         new webpack.ProvidePlugin({
             //$: "jquery",
         }),

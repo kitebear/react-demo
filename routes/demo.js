@@ -14,4 +14,8 @@ router.get("/demo/3",function *(next) {
     yield this.render('demo/SimpleApplication',{ title: "SimpleApplication" })
 })
 
+router.get("/demo/4",function *(next) {
+    yield this.render('demo/API使用',{ title: "API使用" })
+})
+
 module.exports = router
