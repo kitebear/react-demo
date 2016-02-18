@@ -5,26 +5,19 @@ const main_path = path.resolve();
 module.exports = {
     devtool: 'cheap-module-eval-source-map',
     //页面入口
-    entry:[
-        'eventsource-polyfill',
-        'webpack-hot-middleware/client',
-        main_path + "/public/entry.jsx"
-    ],
-    //{
-    //    'polyfill': 'eventsource-polyfill', // necessary for hot reloading with IE
-    //    'client': 'webpack-hot-middleware/client',
-    //    //main        : main_path + '/public/entry.jsx',
-    //    '基础写法'   : main_path + '/public/test/基础写法.jsx',
-    //    '组件式套用'   : main_path + '/public/test/组件式套用.jsx',
-    //    'SimpleApplication': main_path + '/public/test/SimpleApplication.jsx',
-    //    'API使用': main_path + '/public/test/API使用.jsx',
-    //    vendor: ['react']
-    //},
+    entry: {
+        vendor: ['react'],
+        //main        : [main_path + '/public/entry.jsx'],
+        'BaseWrite'   : [main_path + '/public/test/BaseWrite.jsx'],
+        'Component'   : [main_path + '/public/test/Component.jsx'],
+        'SimpleApplication': [main_path + '/public/test/SimpleApplication.js'],
+        'API': [main_path + '/public/test/API.js']
+    },
     //出口文件输出配置
     output: {
         path: main_path + '/dist',
         filename: "[name].js",
-        publicPath: '/dist/'
+        publicPath: '/'
     },
     //加载器
     module: {
@@ -36,7 +29,7 @@ module.exports = {
             {
                 test:/\.jsx|js$/,
                 exclude:/(node_modules)/,
-                loader: 'babel',
+                loader: ['babel'],
                 query:{
                     presets:['es2015', 'stage-0', 'react']
                 }
@@ -48,8 +41,9 @@ module.exports = {
             {test: /\.woff$/, loader: "url-loader?prefix=font/&limit=5000"}
         ]
     },
-    //sourceMap: true, //源支持
+    sourceMap: true, //源支持
     plugins: [
+        new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
         new webpack.ProvidePlugin({

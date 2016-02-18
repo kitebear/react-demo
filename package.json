@@ -21,6 +21,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.4.3",
     "body-parser": "^1.15.0",
+    "consolidate": "^0.14.0",
     "cookie-parser": "^1.4.1",
     "cross-env": "^1.0.7",
     "eslint": "^2.1.0",
@@ -28,6 +29,9 @@
     "eslint-plugin-react": "^3.16.1",
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "hogan": "^1.0.2",
+    "html": "0.0.10",
     "jsx-loader": "^0.13.2",
     "marked": "^0.3.5",
     "morgan": "^1.6.1",
@@ -37,6 +41,7 @@
     "react-tools": "^0.13.3",
     "react-transform": "0.0.3",
     "rimraf": "^2.5.2",
+    "serve-favicon": "^2.3.0",
     "webpack": "^1.12.12",
     "webpack-dev-middleware": "^1.5.1",
     "webpack-hot-middleware": "^2.7.1"
@@ -46,6 +51,7 @@
     "build:webpack": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:webpack",
     "start": "babel-node app.js",
+    "prostart": "cross-env NODE_ENV=production babel-node app.js",
     "lint": "eslint src"
   },
   "author": "",

@@ -32,18 +32,18 @@ var Component = React.createClass({
     render : function() {
         var nums = React.Children.count(this.props.children);
         return (<ul>
-            <li>一共有{nums}个子元素</li> //3
+            <li>一共有{nums}个子元素!!!!!!</li> //44444444
             {this.props.children}
         </ul>)
     }
 });
 
-React.render(
+ReactDom.render(
     (
         <Component>
             <li>0</li>
             <li>1</li>
             <li>2</li>
         </Component>
-    ), document.body
+    ), document.getElementById("content")
 )

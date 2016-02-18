@@ -1,10 +1,12 @@
-import koa_router from 'koa-router'
 import home       from './home'
 import demo       from './demo'
 
-const router = koa_router()
+module.exports = (app) => {
+    app.use(home)
+    app.use(demo)
 
-router.use(home.routes())
-router.use(demo.routes())
-
-module.exports = router
+    app.get("/",function (req,res) {
+        res.render('index.html',{ title: "home" })
+        //res.send('Hello wordl')
+    })
+}

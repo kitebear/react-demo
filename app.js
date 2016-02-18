@@ -6,31 +6,39 @@ import bodyParser       from 'body-parser'
 import cookieParser     from 'cookie-parser'
 import session          from 'express-session'
 import favicon          from 'serve-favicon'
-import webpackConfig    from './webpack.config.dev'
+import engines          from 'consolidate'
 
 const PATH = __dirname + "/" || path.join("./")
 
+const webpackConfig = require((process.env.NODE_ENV != 'production')?'./webpack.config.dev':'./webpack.config.prod')
 const app       = express()
-const router    = require(PATH + 'routes/index.js')
-const compiler  = webpack(webpackConfig)
+const routes    = require(PATH + 'routes/index.js')
 
-app.set('views', __dirname + '/views')
-app.set('view engine', 'html')
+var compiler  = webpack(webpackConfig)
+
+app.engine('html', engines.hogan);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'html');
 
 app.use(favicon(__dirname + '/public/favicon.ico'))
 
-app.use(koaStaticCache(path.join(__dirname, 'public'), {
-    maxAge: 600000 * 60
-}))
+app.use(session({ secret: 'react_demo', cookie: { maxAge: 60000*60 }}))
 
 // 中间件
 app.use(bodyParser.json())
+app.use(bodyParser.text());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({ secret: 'koa_and_react', cookie: { maxAge: 60000*60 }}))
+app.use(express.static(path.join(__dirname, 'dist')));
 
-if(!process.env.NODE_ENV != 'production'){
+if(process.env.NODE_ENV != 'production'){
     app.use(logger())
+
+    for(var i in webpackConfig.entry){
+        webpackConfig.entry[i].push('webpack-hot-middleware/client')
+    }
+
+    compiler  = webpack(webpackConfig)
 
     app.use(require('webpack-dev-middleware')(compiler, {
         noInfo: true,
@@ -52,12 +60,22 @@ if(!process.env.NODE_ENV != 'production'){
     //        console.log(jsonStats.warnings);
     //    console.log('compiler complete');
     //});
+}else{
+    compiler.run(function(err, stats) {
+        if(err)
+            console.log(err.message);
+        var jsonStats = stats.toJson();
+        if(jsonStats.errors.length > 0)
+            console.log(jsonStats.errors);
+        if(jsonStats.warnings.length > 0)
+            console.log(jsonStats.warnings);
+        console.log('compiler complete');
+    });
 }
 
-app.use(express.static(path.join(__dirname, 'dist')));
-
 // 响应
-//app.use(router.routes()).use(router.allowedMethods())
+routes(app);
+
 
 app.use(function(req, res, next) {
     var err = new Error('Not Found');

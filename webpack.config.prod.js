@@ -3,16 +3,14 @@ const path      = require('path');
 const main_path = path.resolve();
 
 module.exports = {
-    devtool: 'source-map',
     //页面入口
-    entry:
-    {
-        //main        : main_path + '/public/entry.jsx',
-        '基础写法'   : main_path + '/public/test/基础写法.jsx',
-        '组件式套用'   : main_path + '/public/test/组件式套用.jsx',
-        'SimpleApplication': main_path + '/public/test/SimpleApplication.jsx',
-        'API使用': main_path + '/public/test/API使用.jsx',
-        vendor: ['react']
+    entry: {
+        vendor: ['react'],
+        //main        : [main_path + '/public/entry.jsx'],
+        'BaseWrite'   : [main_path + '/public/test/BaseWrite.jsx'],
+        'Component'   : [main_path + '/public/test/Component.jsx'],
+        'SimpleApplication': [main_path + '/public/test/SimpleApplication.js'],
+        'API': [main_path + '/public/test/API.js']
     },
     //出口文件输出配置
     output: {

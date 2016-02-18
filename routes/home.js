@@ -1,14 +1,9 @@
-import koa_router from 'koa-router'
+import express    from 'express'
 
-const router = koa_router()
-
-router.get("/",function *(next) {
-    console.log(1)
-    yield this.render('index',{ title: "home" })
-})
+const router = express.Router();
 
 router.get("/user/:id",function () {
-    this.body = 'Hello World'
+    res.body = 'Hello Horld'
 })
 
 module.exports = router
