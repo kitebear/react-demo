@@ -18,10 +18,9 @@ var compiler  = webpack(webpackConfig)
 
 app.use(favicon(__dirname + '/public/favicon.ico'))
 
-app.engine('html', engines.hogan);
-app.set('views', __dirname + '/views');
-app.set('view engine', 'html');
-
+app.engine('html', engines.hogan)
+app.set('views', __dirname + '/views')
+app.set('view engine', 'html')
 
 app.use(session({ secret: 'react_demo', cookie: { maxAge: 60000*60 }}))
 
