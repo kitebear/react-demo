@@ -7,11 +7,7 @@ module.exports = {
     //页面入口
     entry: {
         'vendor'      : ['react','react-dom','react-router'],
-        'main'        : [main_path + '/public/entry.jsx'],
-        'BaseWrite'   : [main_path + '/public/test/BaseWrite.jsx'],
-        'Component'   : [main_path + '/public/test/Component.jsx'],
-        'SimpleApplication': [main_path + '/public/test/SimpleApplication.jsx'],
-        'API': [main_path + '/public/test/API.jsx']
+        'main'        : [main_path + '/public/entry.jsx','webpack-hot-middleware/client']
     },
     //出口文件输出配置
     output: {
@@ -41,7 +37,7 @@ module.exports = {
             {test: /\.woff$/, loader: "url-loader?prefix=font/&limit=5000"}
         ]
     },
-    //sourceMap: true, //源支持
+    sourceMap: true, //源支持
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),

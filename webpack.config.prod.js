@@ -5,12 +5,8 @@ const main_path = path.resolve();
 module.exports = {
     //页面入口
     entry: {
-        vendor: ['react'],
-        //main        : [main_path + '/public/entry.jsx'],
-        'BaseWrite'   : [main_path + '/public/test/BaseWrite.jsx'],
-        'Component'   : [main_path + '/public/test/Component.jsx'],
-        'SimpleApplication': [main_path + '/public/test/SimpleApplication.js'],
-        'API': [main_path + '/public/test/API.js']
+        'vendor'      : ['react','react-dom','react-router'],
+        'main'        : [main_path + '/public/entry.jsx']
     },
     //出口文件输出配置
     output: {

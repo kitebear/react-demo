@@ -1,9 +1,8 @@
+import React                    from 'react'
+
 /**
  * 简单的Router 路由运用
  */
-import React from 'react'
-import { render } from 'react-dom'
-
 class About extends React.Component{
     render () {
         return (
@@ -29,7 +28,7 @@ class Home extends React.Component{
     }
 }
 
-const App = React.createClass({
+const SimpleRouter = React.createClass({
     getInitialState() {
         return {
             route: window.location.hash.substr(1)
@@ -65,4 +64,4 @@ const App = React.createClass({
     }
 })
 
-React.render(<App />, document.getElementById('content'))
+export default SimpleRouter
