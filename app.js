@@ -35,6 +35,9 @@ if(process.env.NODE_ENV != 'production'){
     app.use(logger())
 
     for(var i in webpackConfig.entry){
+        if(i === 'vendor'){
+            continue;
+        }
         webpackConfig.entry[i].push('webpack-hot-middleware/client')
     }
 
