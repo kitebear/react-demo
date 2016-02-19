@@ -3,6 +3,26 @@ body{
   margin  : 0;
 }
 
-body{
-  background: pink;
+ul{
+  padding: 0;
+  margin: 0;
+}
+
+section{
+  overflow: hidden;
+}
+
+.bar{
+  float: left;
+}
+
+.bar-left{
+  display: inline-block;
+  width: 200px;
+  margin: 20px;
+  padding-left: 20px;
+}
+
+.bar-right{
+
 }

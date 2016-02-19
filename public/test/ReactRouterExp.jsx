@@ -30,7 +30,7 @@ const Message = React.createClass({
     }
 })
 
-class App extends React.Component {
+class ReactRouterExp extends React.Component {
     render () {
         return (
             <div>

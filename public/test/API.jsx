@@ -2,7 +2,6 @@
  * Created by xiedonghao on 16/2/18.
  */
 import React from 'react'
-import ReactDom from 'react-dom'
 
 /**
  * React.Children.forEach(object children, function fn [, object context])
@@ -28,7 +27,7 @@ import ReactDom from 'react-dom'
  * React.Children.count(object children)
  * 返回子元素的总数：
  */
-var Component = React.createClass({
+var API = React.createClass({
     render : function() {
         var nums = React.Children.count(this.props.children);
         return (<ul>
@@ -38,12 +37,4 @@ var Component = React.createClass({
     }
 });
 
-ReactDom.render(
-    (
-        <Component>
-            <li>0</li>
-            <li>1</li>
-            <li>2</li>
-        </Component>
-    ), document.getElementById("content")
-)
+export default API

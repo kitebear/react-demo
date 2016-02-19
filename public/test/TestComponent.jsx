@@ -2,8 +2,6 @@
  * Created by xiedonghao on 16/2/15.
  */
 import React from 'react'
-import HelloWorldComponent from './HelloWorldComponent'
-import ReactDom from 'react-dom'
 import marked from 'marked'
 //基本写法
 //const CommentBox = React.createClass({
@@ -93,7 +91,7 @@ const CommentForm = React.createClass({
     }
 })
 
-const CommentBox = React.createClass({
+const TestComponent = React.createClass({
     //第一次初始化时调用 返回state的值
     getInitialState () {
         return { data: [1,2,3,4] };
@@ -120,21 +118,18 @@ const CommentBox = React.createClass({
     },
     //组件渲染的时候被 React 自动调用的方法
     componentDidMount: function() {
-        this.loadCommentsFromServer();
+        //this.loadCommentsFromServer();
         //setInterval(this.loadCommentsFromServer, this.props.pollInterval);
     },
     render: function(){
         return (
             <div className="commentBox">
                 <h1> Comments </h1>
-                <CommentList data={this.props.data}></CommentList>
+                <CommentList data={data}></CommentList>
                 <CommentForm data={this.state.data} ck={this.ck}></CommentForm>
             </div>
         )
     }
 })
 
-ReactDom.render(
-    <CommentBox data={data} pollInterval={2000}></CommentBox>,
-    document.querySelector("#content")
-)
+export default TestComponent

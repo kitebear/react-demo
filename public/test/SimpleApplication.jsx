@@ -48,7 +48,7 @@ class TodoInput extends React.Component {
     }
 }
 
-class TodoApp extends React.Component {
+class SimpleApplication extends React.Component {
     state = {
         items: ['aaa','bbb']
     }
@@ -77,7 +77,4 @@ class TodoApp extends React.Component {
     }
 }
 
-ReactDom.render(
-    <TodoApp />,
-    document.getElementById('content')
-)
+export default SimpleApplication
