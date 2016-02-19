@@ -12,7 +12,6 @@ const PATH = __dirname + "/" || path.join("./")
 
 const webpackConfig = require((process.env.NODE_ENV != 'production')?'./webpack.config.dev':'./webpack.config.prod')
 const app       = express()
-const routes    = require(PATH + 'routes/index.js')
 
 var compiler  = webpack(webpackConfig)
 
@@ -69,22 +68,14 @@ if(process.env.NODE_ENV != 'production'){
     });
 }
 
-// 响应
-routes(app);
-
+app.get('*', function (request, response){
+    response.sendFile(path.resolve(__dirname, 'views', 'index.html'))
+})
 
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
-});
-
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.send(JSON.stringify({
-        message: err.message,
-        error: (app.get('env') === 'development') ? err : {}
-    }));
 });
 
 // 监听3000
