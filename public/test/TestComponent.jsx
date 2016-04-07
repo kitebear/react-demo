@@ -20,16 +20,16 @@ import marked from 'marked'
 //)
 
 //JSX语法
-//const CommentBox = React.createClass({
-//    displayName: 'CommentBox',
-//    render: function () {
-//        return (
-//            React.createElement(
-//            'div',
-//            {className: 'commentBox'}, "Hello, world! II am a CommentBox.")
-//        )
-//    }
-//})
+const CommentBox = React.createClass({
+    displayName: 'CommentBox',
+    render: function () {
+        return (
+            React.createElement(
+            'div',
+            {className: 'commentBox'}, "Hello, world! II am a CommentBox.")
+        )
+    }
+})
 //
 //ReactDom.render(
 //    React.createElement(CommentBox,null),

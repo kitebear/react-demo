@@ -76,7 +76,7 @@ app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
-});
+})
 
 // 监听3000
 app.listen(3000,err => {
