@@ -1,4 +1,5 @@
-var React = require('react/addons')
+import React   from 'react'
+import Addons  from 'react-addons'
 
 //class ReactLinkData extends React.Component {
 //
@@ -24,8 +25,10 @@ var React = require('react/addons')
 //    }
 //}
 
+
+
 var ReactLinkData = React.createClass({
-    mixins : [React.addons.LinkedStateMixin],
+    mixins : [Addons.LinkedStateMixin],
     getInitialState: function() {
         return {count: 0};
     },

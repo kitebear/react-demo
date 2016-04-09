@@ -3,13 +3,13 @@ import ReactDom                 from 'react-dom'
 import { Router,Redirect, Route, Link, browserHistory }  from 'react-router'
 import createBrowserHistory     from 'history/lib/createBrowserHistory'
 
-//import SimpleRouter             from 'test/SimpleRouter'
-import {About,Inbox,Message,SimpleRouter}             from 'test/ReactRouterExp'
-import API                      from 'test/API'
-import BaseWrite                from 'test/BaseWrite'
-import TestComponent            from 'test/TestComponent'
-import SimpleApplication        from 'test/SimpleApplication'
-import ReactLinkData            from 'test/ReactLinkData'
+import {About,Inbox,Message,SimpleRouter}             from 'components/ReactRouterExp'
+import API                      from 'components/API'
+import BaseWrite                from 'components/BaseWrite'
+import TestComponent            from 'components/TestComponent'
+import SimpleApplication        from 'components/SimpleApplication'
+import ReactLinkData            from 'components/ReactLinkData'
+import ReduxDemo                from 'components/ReduxDemo'
 
 require('sass/index')
 
@@ -44,6 +44,9 @@ class App extends React.Component {
                     <li>
                         <Link to="/SimpleRouter">6.简单的使用Router</Link>
                     </li>
+                    <li>
+                        <Link to="/ReduxDemo">7.ReduxDemo</Link>
+                    </li>
                 </ul>
                 <div className="bar bar-right">
                     { this.props.children }
@@ -68,6 +71,7 @@ ReactDom.render(
                 <Route path="TestComponent" component={TestComponent}></Route>
                 <Route path="SimpleApplication" component={SimpleApplication}></Route>
                 <Route path="ReactLink" component={ReactLinkData}></Route>
+                <Route path="ReduxDemo" component={ReduxDemo}></Route>
             </Route>
         </Router>
     ),
