@@ -42,7 +42,6 @@ const SimpleRouter = React.createClass({
             })
         })
     },
-
     render() {
         let Child
         switch (this.state.route) {

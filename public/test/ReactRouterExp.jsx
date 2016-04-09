@@ -18,7 +18,7 @@ class Inbox extends React.Component{
         return (
             <div>
                 <span>Inbox</span>
-                {this.props.children || "Welcome to your Inbox"}
+                {this.props.children}
             </div>
         )
     }
@@ -30,17 +30,25 @@ const Message = React.createClass({
     }
 })
 
-class ReactRouterExp extends React.Component {
+class SimpleRouter extends React.Component {
     render () {
+        var style = {
+            marginLeft : "20px"
+        }
         return (
             <div>
                 <h1>APP</h1>
                 <ul>
                     <li>
-                        <Link to="/about">About</Link>
+                        <Link to="/SimpleRouter/about">About</Link>
                     </li>
                     <li>
-                        <Link to="/inbox">inbox</Link>
+                        <Link to="/SimpleRouter/inbox">inbox</Link>
+                        <ul style={style}>
+                            <li>
+                                <Link to="/SimpleRouter/inbox/messages/2">messages</Link>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
                 {this.props.children}
@@ -49,15 +57,6 @@ class ReactRouterExp extends React.Component {
     }
 }
 
-React.render((
-    <Router>
-        <Route path="/" component={App}>
-            <Route path="about" component={About} />
-            <Route path="inbox" component={Inbox} >
-                <Route path="messages/:id" component={Message} />
-            </Route>
-        </Route>
-    </Router>
-), document.getElementById('content'))
+export {About,Inbox,Message,SimpleRouter}
 
 //http://localhost:3000/#/inbox/messages/fadfdsfadfasdfasf312?_k=joobpy
