@@ -9,7 +9,7 @@ import BaseWrite                from 'components/BaseWrite'
 import TestComponent            from 'components/TestComponent'
 import SimpleApplication        from 'components/SimpleApplication'
 import ReactLinkData            from 'components/ReactLinkData'
-import ReduxDemo                from 'components/ReduxDemo'
+import ReduxDemo                from 'components/todo/index'
 
 require('sass/index')
 
@@ -45,7 +45,7 @@ class App extends React.Component {
                         <Link to="/SimpleRouter">6.简单的使用Router</Link>
                     </li>
                     <li>
-                        <Link to="/ReduxDemo">7.ReduxDemo</Link>
+                        <Link to="/ReduxDemo">8.ReduxDemo</Link>
                     </li>
                 </ul>
                 <div className="bar bar-right">

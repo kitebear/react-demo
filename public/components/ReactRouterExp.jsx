@@ -3,6 +3,7 @@
  */
 import React                    from 'react'
 import ReactDom                 from 'react-dom'
+import { Router,Redirect, Route, Link, browserHistory }  from 'react-router'
 
 class About extends React.Component{
     render () {
